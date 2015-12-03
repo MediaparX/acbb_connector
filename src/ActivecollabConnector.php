@@ -8,7 +8,7 @@ class ActivecollabConnector
 	private $config;
 
 	/**
-	 * @param string $project
+	 * @param array $config
 	 */
 	public function __construct(array $config)
 	{
@@ -52,7 +52,7 @@ class ActivecollabConnector
 	{
 		$url = sprintf('%s&path_info=projects/%s/tasks/%d/edit',
 			$this->getApiUrl(),
-			$this->project,
+			$this->getProject($commit->repo),
 			$commit->id
 			);
 		$data = array(
@@ -77,18 +77,19 @@ class ActivecollabConnector
 			$commit->author,
 			$commit->link
 		);
-		$this->commentTask($commit->id, $message);
+		$this->commentTask($commit->id, $this->getProject($commit->repo), $message);
 	}
 
 	/**
 	 * @param integer $taskId
+	 * @param string  $project
 	 * @param string  $message
 	 */
-	public function commentTask($taskId, $message)
+	public function commentTask($taskId, $project, $message)
 	{
 		$url = sprintf('%s&path_info=projects/%s/tasks/%d/comments/add',
 			$this->getApiUrl(),
-			$this->project,
+			$project,
 			$taskId
 			);
 		$data = array(
