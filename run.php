@@ -1,11 +1,5 @@
 <?php
 
-// @todo
-// - change assigned user on-solved
-// - add error logging
-// - get data from php input
-// - add IP whitelisting
-
 error_reporting(E_ALL);
 ini_set('display_errors', 'on');
 

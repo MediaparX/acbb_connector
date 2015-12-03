@@ -60,11 +60,12 @@ class ActiveCollabConnector
 			$commit->id
 			);
 		$data = array(
-			'submitted'      => 'submitted',
-			'task[label_id]' => $this->getLabelId('solved'),
+			'submitted'         => 'submitted',
+			'task[label_id]'    => $this->getLabelId('solved'),
+			//'task[assignee_id]' => 1,
 			);
 
-		$message = sprintf('<p>%s</p><p>Fixed by %s in this <a href="%s">BitBucket commit</a></p>', 
+		$message = sprintf('<p>%s</p><p>fixed by %s in this <a href="%s">BitBucket commit</a></p>', 
 			$commit->message,
 			$commit->author,
 			$commit->link);

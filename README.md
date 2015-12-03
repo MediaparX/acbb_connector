@@ -3,6 +3,13 @@ BitBucket - ActiveCollab connector
 
 Todo: describe what this does
 
+## Todo
+
+* GET task before solving
+* set assignee_id to the person who created the task
+* add logging of error and actions to a file for better debugging
+* add IP whitelisting
+
 ## Howto
 
 ### Installation
