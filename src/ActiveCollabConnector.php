@@ -28,7 +28,7 @@ class ActiveCollabConnector
 	/**
 	 * @param BitbucketPostParser $parser
 	 */
-	public function import(BitbucketPostParser $parser) 
+	public function import(BitBucketPostParser $parser) 
 	{
 		$matches = $parser->getCommits();
 		foreach ($matches as $commit) {

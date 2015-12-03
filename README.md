@@ -20,8 +20,15 @@ Todo: document installation
 
 ### Config
 
-Todo: document config
+1. Rename config.php.tpl to config.php
+2. Todo: document config options
 
 ### BitBucket
 
-Todo: document BitBucket
+1. Open your repo(s) on bitbucket.org
+2. Go to Settings > Webhooks > Add webhook
+3. Add a title (e.g. ActiveCollab push), URL (to the run.php on your server) and choose the "Repository push" trigger
+
+## Links
+
+* [ActiveCollab API](https://help-classic.activecollab.com/books/api/check-api-url.html)

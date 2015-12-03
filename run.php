@@ -17,7 +17,6 @@ require_once BASE_PATH . '/src/ActiveCollabConnector.php';
 require_once BASE_PATH . '/src/CommitAction.php';
 
 try {
-	//$input = file_get_contents('data.json');
 	$input = file_get_contents('php://input');
 
 	// parse incoming data
