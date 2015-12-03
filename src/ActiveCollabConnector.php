@@ -64,7 +64,8 @@ class ActiveCollabConnector
 			'task[label_id]' => $this->getLabelId('solved'),
 			);
 
-		$message = sprintf('Fixed by %s in this <a href="%s">BitBucket commit</a>', 
+		$message = sprintf('<p>%s</p><p>Fixed by %s in this <a href="%s">BitBucket commit</a></p>', 
+			$commit->message,
 			$commit->author,
 			$commit->link);
 
