@@ -64,7 +64,7 @@ class ActivecollabConnector
 			'task[label_id]' => $this->getConfig('label_id_map')['solved'],
 			);
 
-		$message = sprintf('Fixed by %s in <a href="%s">BitBucket commit</a>', 
+		$message = sprintf('Fixed by %s in this <a href="%s">BitBucket commit</a>', 
 			$commit->author,
 			$commit->link);
 
@@ -77,7 +77,7 @@ class ActivecollabConnector
 	 */
 	public function referenceTask(CommitAction $commit)
 	{
-		$message = sprintf('%s<p>by %s in <a href="%s">BitBucket commit</a></p>',
+		$message = sprintf('%s<p>by %s in this <a href="%s">BitBucket commit</a></p>',
 			$commit->message,
 			$commit->author,
 			$commit->link
