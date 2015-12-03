@@ -42,6 +42,10 @@ class ActivecollabConnector
 					$this->referenceTask($commit);
 					break;
 			}
+
+			if ($this->getConfig('debug') === true) {
+				var_dump($commit);
+			}
 		}
 	}
 
@@ -64,6 +68,7 @@ class ActivecollabConnector
 			$commit->author,
 			$commit->link);
 
+		$this->commentTask($commit->id, $this->getProject($commit->repo), $message);
 		$this->post($url, $data);
 	}
 
@@ -140,7 +145,7 @@ class ActivecollabConnector
 			CURLOPT_POSTFIELDS => http_build_query($data),
 			// CURLOPT_VERBOSE => 1,
 			// CURLOPT_HEADER => 1,
-			// CURLOPT_RETURNTRANSFER => 1,
+			CURLOPT_RETURNTRANSFER => 1,
 			));
 		$response = curl_exec($ch);
 		curl_close($ch);
