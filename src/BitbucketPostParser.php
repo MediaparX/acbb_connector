@@ -1,6 +1,6 @@
 <?php
 
-class BitbucketPostParser 
+class BitBucketPostParser 
 {
 	/**
 	 * @var array

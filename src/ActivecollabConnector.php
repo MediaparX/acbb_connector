@@ -1,6 +1,6 @@
 <?php
 
-class ActivecollabConnector
+class ActiveCollabConnector
 {
 	/**
 	 * @var array
@@ -61,7 +61,7 @@ class ActivecollabConnector
 			);
 		$data = array(
 			'submitted'      => 'submitted',
-			'task[label_id]' => $this->getConfig('label_id_map')['solved'],
+			'task[label_id]' => $this->getLabelId('solved'),
 			);
 
 		$message = sprintf('Fixed by %s in this <a href="%s">BitBucket commit</a>', 

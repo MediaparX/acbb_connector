@@ -6,4 +6,6 @@ class CommitAction
 	public $id;
 	public $link;
 	public $message;
+	public $author;
+	public $repo;
 }
