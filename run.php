@@ -2,8 +2,6 @@
 
 // @todo
 // - change assigned user on-solved
-// - add config.php for all variable stuff
-// - handling for project name
 // - add "bot" user
 // - add error logging
 
@@ -13,9 +11,9 @@ ini_set('display_errors', 'on');
 require_once 'config.php';
 require_once 'src/BitbucketPostParser.php';
 require_once 'src/ActiveCollabConnector.php';
+require_once 'src/CommitAction.php';
 
 try {
-
 	$input = file_get_contents('data.json');
 
 	// parse incoming data
