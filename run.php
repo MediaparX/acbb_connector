@@ -12,7 +12,7 @@ ini_set('display_errors', 'on');
 define('BASE_PATH', dirname(__FILE__));
 
 require_once BASE_PATH . '/config.php';
-require_once BASE_PATH . '/src/BitbucketPostParser.php';
+require_once BASE_PATH . '/src/BitBucketPostParser.php';
 require_once BASE_PATH . '/src/ActiveCollabConnector.php';
 require_once BASE_PATH . '/src/CommitAction.php';
 
