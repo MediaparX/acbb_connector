@@ -7,7 +7,7 @@
 // - add "bot" user
 // - add error logging
 
-error_reporting(E_ALL ^ E_NOTICE ^ E_STRICT);
+error_reporting(E_ALL);
 ini_set('display_errors', 'on');
 
 require_once 'config.php';
