@@ -4,7 +4,7 @@
  * it expects a payload of json data
  */
 
-require_once 'bootstrap.php';
+require_once dirname(__FILE__) . '/bootstrap.php';
 
 try {
 	$input = file_get_contents('php://input');
