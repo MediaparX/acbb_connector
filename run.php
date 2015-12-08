@@ -7,7 +7,7 @@
 require_once dirname(__FILE__) . '/bootstrap.php';
 
 try {
-	// check if ip is whitelisted or we don't process request
+	// check if ip is whitelisted or we won't process request
 	if (!HttpUtils::ipIsInRange($_SERVER['REMOTE_ADDR'], $config['ip_whitelist'])) {
 		throw new Exception(sprintf('IP %s is not whitelisted', $_SERVER['REMOTE_ADDR']), 403);
 	}
