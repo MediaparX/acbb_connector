@@ -113,6 +113,10 @@ class ActiveCollabConnector
 			'comment[body]' => $message,
 			);
 		$this->post($url, $data);
+
+		if ($this->getConfig('debug') === true) {
+			print $message . '<br>';
+		}
 	}
 
 	/**

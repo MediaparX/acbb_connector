@@ -36,10 +36,6 @@ class BitBucketPostParser
 				}
 			}
 		}
-
-		if (!count($this->commits) >= 1) {
-			throw new Exception('Found no data to parse');
-		}
 	}
 
 	/**

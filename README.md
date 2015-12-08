@@ -5,7 +5,6 @@ Todo: describe what this does
 
 ## Todo
 
-* add logging of error and actions to a file for better debugging
 * add IP whitelisting
 * don't post the same comment again when switching branches and pushing that branch
 
@@ -34,6 +33,11 @@ Todo: document installation
 1. Open your repo(s) on bitbucket.org
 2. Go to Settings > Webhooks > Add webhook
 3. Add a title (e.g. ActiveCollab push), URL (to the run.php on your server) and choose the "Repository push" trigger
+
+### Debugging
+
+* Errors are logged to `./error_log` in the same directory as `run.php`
+* Set `$config['debug'] = true` for a bit more verbosity
 
 ## Links
 

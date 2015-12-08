@@ -18,6 +18,6 @@ try {
 	$connector->import($parser);
 }
 catch (Exception $e) {
-	// @todo log errors
-	die($e->getMessage());
+	error_log($e->getMessage());
+	header('HTTP/1.1 500 Internal Server Error', true, 500);
 }
