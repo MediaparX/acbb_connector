@@ -3,10 +3,6 @@ BitBucket - ActiveCollab connector
 
 Todo: describe what this does
 
-## Todo
-
-* don't post the same comment again when switching branches and pushing that branch
-
 ## Howto
 
 ### Installation
@@ -41,3 +37,7 @@ Todo: document installation
 ## Links
 
 * [ActiveCollab API](https://help-classic.activecollab.com/books/api/check-api-url.html)
+
+## Todo
+
+currently no open todos

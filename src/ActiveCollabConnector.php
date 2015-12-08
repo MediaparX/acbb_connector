@@ -3,6 +3,11 @@
 class ActiveCollabConnector
 {
 	/**
+	 * @const integer
+	 */
+	const COMMENT_EXISTS = 1001;
+
+	/**
 	 * @var array
 	 */
 	private $config;
@@ -34,20 +39,33 @@ class ActiveCollabConnector
 	{
 		$matches = $parser->getCommits();
 		foreach ($matches as $commit) {
-			switch ($commit->action) {
-				case 'fixes':
-				case 'solves':
-					$this->solveTask($commit);
-					break;
-
-				case 'refs':
-					$this->referenceTask($commit);
-					break;
-			}
-
+			// debug
 			if ($this->getConfig('debug') === true) {
 				var_dump($commit);
 			}
+
+			// handle commit action
+			try {
+				switch ($commit->action) {
+					case 'fixes':
+					case 'solves':
+						$this->solveTask($commit);
+						break;
+
+					case 'refs':
+						$this->referenceTask($commit);
+						break;
+				}
+			}
+			catch (Exception $e) {
+				if ($e->getCode() == self::COMMENT_EXISTS) {
+					if ($this->getConfig('debug') === true) {
+						print 'comment already exists<br>';
+					}
+					continue;
+				}
+			}
+
 		}
 	}
 
@@ -80,6 +98,7 @@ class ActiveCollabConnector
 			$commit->link
 			);
 
+		// add comment and update task
 		$this->commentTask($commit->id, $this->getConfig($commit->repo, 'repo_project_map'), $message);
 		$this->post($taskUpdateUrl, $data);
 	}
@@ -98,21 +117,36 @@ class ActiveCollabConnector
 	}
 
 	/**
+	 * @throws Exception When comment already exists
 	 * @param integer $taskId
 	 * @param string  $project
 	 * @param string  $message
 	 */
 	public function commentTask($taskId, $project, $message)
 	{
-		$url = $this->getApiUrl(sprintf('projects/%s/tasks/%d/comments/add',
+		// build urls
+		$url = $this->getApiUrl(sprintf('projects/%s/tasks/%d/comments',
 			$project,
 			$taskId
 			));
+		$addUrl = $url . '/add';
+
+		// get pre-existing comments for this task
+		$comments = $this->get($url);
+		// if we already commented the same comment on this task, abort
+		// this occurs e.g. when merging and pushing branches
+		foreach($comments as $comment) {
+			if ($comment->body == $message) {
+				throw new Exception('Comment already exists for this task', self::COMMENT_EXISTS);
+			}
+		}
+
+		// post data to api
 		$data = array(
 			'submitted'     => 'submitted',
 			'comment[body]' => $message,
 			);
-		$this->post($url, $data);
+		$this->post($addUrl, $data);
 
 		if ($this->getConfig('debug') === true) {
 			print $message . '<br>';
