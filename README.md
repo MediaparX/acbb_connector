@@ -70,6 +70,7 @@ Since AC starts task IDs at 1 for every project, it's not possible to reference 
 ### Files
 
 **1** Clone or download this repository
+
 **2** Create `config.php` by referring to `config.default.php`. This is what your `config.php` could look like:
 
 ```php
