@@ -113,7 +113,7 @@ acbb_connector/
 require_once '../acbb_connector/run.php';
 ```
 
-You should now be able to access `active-collab.yourdomain.org/acbb_connector.php` in your browser and get a *403 Access Denied*.
+You should now be able to access `active-collab.yourdomain.org/acbb_connector.php` in your browser and get a *403 Access Denied*. This means it looks like it's working. Access is only granted to the IPs whitelisted in `config.default.php`, which are the IPs BB lists as it's servers.
 
 ### ActiveCollab
 
