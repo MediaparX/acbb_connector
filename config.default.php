@@ -4,6 +4,12 @@ $config = array(
 	'debug'          => false,
 	'api_base_url'   => '',
 	'api_user_token' => '',
+	'ip_whitelist'   => array(
+		// these are the ips bitbuckets says to whitelist on the edit-webhook page
+		'131.103.20.160/27',
+		'165.254.145.0/26',
+		'104.192.143.0/24'
+		),
 	'label_id_map'   => array(
 		'solved' => 1,
 		),
