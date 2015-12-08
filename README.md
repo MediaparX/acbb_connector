@@ -113,7 +113,7 @@ acbb_connector/
 require_once '../acbb_connector/run.php';
 ```
 
-You should no be able to call up `active-collab.yourdomain.org/acbb_connector.php` and get a *403 Access Denied*.
+You should now be able to access `active-collab.yourdomain.org/acbb_connector.php` in your browser and get a *403 Access Denied*.
 
 ### ActiveCollab
 
