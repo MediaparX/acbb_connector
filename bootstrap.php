@@ -17,3 +17,4 @@ require_once BASE_PATH . '/config.php';
 require_once BASE_PATH . '/src/BitBucketPostParser.php';
 require_once BASE_PATH . '/src/ActiveCollabConnector.php';
 require_once BASE_PATH . '/src/CommitAction.php';
+require_once BASE_PATH . '/src/HttpUtils.php';

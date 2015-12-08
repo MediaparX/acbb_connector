@@ -5,7 +5,6 @@ Todo: describe what this does
 
 ## Todo
 
-* add IP whitelisting
 * don't post the same comment again when switching branches and pushing that branch
 
 ## Howto

@@ -7,11 +7,22 @@
 require_once dirname(__FILE__) . '/bootstrap.php';
 
 try {
+	// check if ip is whitelisted or we don't process request
+	if (!HttpUtils::ipIsInRange($_SERVER['REMOTE_ADDR'], $config['ip_whitelist'])) {
+		throw new Exception(sprintf('IP %s is not whitelisted', $_SERVER['REMOTE_ADDR']), 403);
+	}
+
 	$input = file_get_contents('php://input');
 
 	// parse incoming data
-	$parser = new BitBucketPostParser();
-	$parser->parse($input);
+	try {
+		$parser = new BitBucketPostParser();
+		$parser->parse($input);
+	}
+	// if we can't parse it, we'll send bad request to bitbucket
+	catch (Exception $e) {
+		throw new Exception($e->getMessage(), 400);
+	}
 
 	// import to active collab
 	$connector = new ActiveCollabConnector($config);
@@ -19,5 +30,6 @@ try {
 }
 catch (Exception $e) {
 	error_log($e->getMessage());
-	header('HTTP/1.1 500 Internal Server Error', true, 500);
+	$statusCode = $e->getCode() > 0 ? $e->getCode() : 500;
+	HttpUtils::sendHeader($statusCode);
 }
