@@ -1,14 +1,10 @@
 <?php
+/**
+ * this is the file that should be called by the bitbucket post-commit hook
+ * it expects a payload of json data
+ */
 
-error_reporting(E_ALL);
-ini_set('display_errors', 'on');
-
-define('BASE_PATH', dirname(__FILE__));
-
-require_once BASE_PATH . '/config.php';
-require_once BASE_PATH . '/src/BitBucketPostParser.php';
-require_once BASE_PATH . '/src/ActiveCollabConnector.php';
-require_once BASE_PATH . '/src/CommitAction.php';
+require_once 'bootstrap.php';
 
 try {
 	$input = file_get_contents('php://input');
@@ -17,9 +13,11 @@ try {
 	$parser = new BitBucketPostParser();
 	$parser->parse($input);
 
+	// import to active collab
 	$connector = new ActiveCollabConnector($config);
 	$connector->import($parser);
 }
 catch (Exception $e) {
+	// @todo log errors
 	die($e->getMessage());
 }
