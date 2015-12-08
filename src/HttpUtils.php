@@ -40,11 +40,11 @@ class HttpUtils
 	public static function ipIsInRange($requestIp, array $range)
 	{
 		foreach ($range as $ip) {
-			if (!HttpUtils::checkIp4($requestIp, $ip)) {
-				return false;
+			if (HttpUtils::checkIp4($requestIp, $ip) === true) {
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	/**
