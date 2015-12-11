@@ -1,7 +1,7 @@
 # acbb_connector
 BitBucket - ActiveCollab connector
 
-This is a tool for connecting [BitBucket](https://bitbucket.org) (BB) repositories with [ActiveCollab](https://www.activecollab.com/) (AC) projects. It allows you to reference or solve AC tasks/tickets with BB commits by using keywords in your commit message. Currently the following features are supported:
+This is a tool for connecting [BitBucket](https://bitbucket.org) (BB) repositories with [ActiveCollab](https://www.activecollab.com/) (AC) projects. It allows you to reference or solve AC tasks with BB commits by using keywords in your commit message. Currently the following features are supported:
 
 * referencing tickets: creates a comment on the AC task with commit message, author and link to BB
 * solving tickets: same as referencing, but marks task as *solved* and assigns it back to the delegating user
@@ -57,13 +57,13 @@ Both BB and AC offer similar functionality, just not together.
 
 This tool does not rule out either of those features, it can be used instead of, or alongside the default workflows of AC and BB.
 
-### What I was saying..
+### As we were saying..
 
-BB supports triggers on certain repo events. We use the post-commit hook to make a request to our `run.php` file. This file receives a json payload from BB with the most recent commits for a given repo. We parse this data and each commit message looking for the keywords mentioned above. When we find one, we match the BB repository name to the AC project name via the config and trigger certain actions via the API each AC has.
+BB supports triggers on certain repo events. We use the post-commit hook to make a request to our `run.php` file. This file receives a json payload from BB with the most recent commits for a given repo. We parse this data and each commit message looking for the keywords mentioned above. When we find one, we match the BB repository name to the AC project name via the config and trigger certain actions via AC's API.
 
 ### Limitations
 
-Since AC starts task IDs at 1 for every project, it's not possible to reference a ticket id absolutely to a project, meaning you can only link each BB repo to 1 AC project.
+Since AC starts task IDs at #1 for every project, it's not possible to reference a ticket id absolutely to a project, meaning you can only link each BB repo to 1 AC project.
 
 ## Installation
 
@@ -94,7 +94,7 @@ return $config;
 ```
 
 * we'll get to `api_base_url` and `api_user_token` in the next section
-* `label_id_map` maps labels to their IDs in your AC instance. The easiest way to found out what your label IDs are is to change the label of a ticket and inspect the dropdown menu with the label names. The value of the `<option>` tags are the label IDs.
+* `label_id_map` maps labels to their IDs in your AC instance. The easiest way to find out what your label IDs are is to change the label of a ticket and inspect the dropdown menu with the label names. The value of the `<option>` tags are the label IDs.
 * `repo_project_map` maps your BB repo names to your AC project names. In this example, this would map the repo `acbb_connector` on BB to my AC project `acbb-connector`.
 
 **3** Upload this tool to the webserver where your AC instance is running, preferably outside of your webroot:
@@ -113,16 +113,18 @@ acbb_connector/
 require_once '../acbb_connector/run.php';
 ```
 
-You should now be able to access `active-collab.yourdomain.org/acbb_connector.php` in your browser and get a *403 Access Denied*. This means it looks like it's working. Access is only granted to the IPs whitelisted in `config.default.php`, which are the IPs BB lists as it's servers.
+You should now be able to access `active-collab.yourdomain.org/acbb_connector.php` in your browser and get a *403 Access Denied*. This means it's probably working. Access is only granted to the IPs whitelisted in `config.default.php`, which are the IPs BB lists as it's servers.
 
 ### ActiveCollab
 
-1. Create a dedicated ActiveCollab user, assign him to all projects you use with BitBucket
+1. Create a dedicated AC user, assign him to all projects you want to use with BitBucket
 2. Visit the user's user profile page
 3. Click "Options" (the gear icon on the top-right) > "API Settings"
 4. Click "Add API-Token"
-5. Name: *BitBucket Bot* (or whatever you like) / Company: *Your company* / read-only: *no*
-6. Click the magnifying glass and copy the API URL and token to config.php
+5. `Name:` *BitBucket Bot* (or whatever you like)<br>
+`Company:` *Your company*<br>
+`read-only:` *no*
+6. Click the magnifying glass. A popup will open with your API URL and API user token. Copy these to config.php (`api_base_url` and `api_user_token`)
 
 ### BitBucket
 
@@ -130,11 +132,18 @@ You should now be able to access `active-collab.yourdomain.org/acbb_connector.ph
 2. Go to Settings > Webhooks > Add webhook
 3. Add a title (e.g. ActiveCollab push), set the URL to `active-collab.yourdomain.org/acbb_connector.php` and choose the "Repository push" trigger
 
+### That's it
+You should be set. Try it out by committing to one of the repos you configured in `config.php` with a keyword and pushing it to BB. You should see the comment show up in the corresponding AC task a few seconds later.
+
 ### Debugging
 
-* Errors are logged to `./error_log` in the same directory as `run.php`
-* Set `$config['debug'] = true` for a bit more verbosity
+* Make sure `acbb_connector.php` file is reachable via a public URL
+* Errors are logged to `./error_log` in the same directory as `run.php` (make sure apache can write to this file. If it doesn't exist, create it)
+* You can see the requests BB makes to `acbb_connector.php` on the repositories' webhooks page "View requests"
+* Make sure your AC API is running by following [this guide](https://help-classic.activecollab.com/books/api/check-api-url.html)
+* If it's still not working, [create an issue](https://github.com/MediaparX/acbb_connector/issues/new) with as much info as possible and we'll try to help
 
 ## Links
 
-* [ActiveCollab API](https://help-classic.activecollab.com/books/api/check-api-url.html)
+* [ActiveCollab API](https://help-classic.activecollab.com/books/api/)
+* [BitBucket webhooks](https://confluence.atlassian.com/bitbucket/manage-webhooks-735643732.html)
