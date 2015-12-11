@@ -5,7 +5,10 @@ $config = array(
 	'api_base_url'   => '',
 	'api_user_token' => '',
 	'ip_whitelist'   => array(
-		// these are the ips bitbucket says to whitelist on the edit-webhook page
+		// these are the new bb webhook ip ranges
+		'104.192.143.192/28',
+		'104.192.143.208/28',
+		// these will be deprecated soon
 		'131.103.20.160/27',
 		'165.254.145.0/26',
 		'104.192.143.0/24'
