@@ -43,6 +43,10 @@ class ActiveCollabConnector
 			if ($this->getConfig('debug') === true) {
 				var_dump($commit);
 			}
+			// not all commits are interesting for activecollab (e.g. branch merges)
+			if (!$commit->isActualChange()) {
+				continue;
+			}
 
 			// handle commit action
 			try {
