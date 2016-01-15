@@ -97,8 +97,8 @@ class ActiveCollabConnector
 
 		$message = sprintf($this->getConfig('solve_task_msg', 'texts'), 
 			$commit->message,
-			$commit->author,
 			$task->delegated_by->name,
+			$commit->author,
 			$commit->link
 			);
 
