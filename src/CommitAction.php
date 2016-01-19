@@ -24,4 +24,12 @@ class CommitAction
 		}
 		return $isChange;
 	}
+
+	/**
+	 * Get commit message in html
+	 * @return string
+	 */
+	public function getHtmlMessage() {
+		return nl2br($this->message);
+	}
 }
